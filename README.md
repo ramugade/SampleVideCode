@@ -7,286 +7,354 @@
 
 Vedang.AI is an intelligent retirement planning platform that combines cutting-edge artificial intelligence with expert financial planning principles. Our interactive chat-based advisor helps users create personalized retirement strategies tailored to their unique goals, risk profiles, and financial situations.
 
-## Features
+This repository contains both the frontend and backend applications for the complete Vedang.AI platform.
 
-- **AI-Powered Analysis**: Advanced algorithms analyze user data to create optimal retirement strategies
-- **Interactive Chat Interface**: Natural conversation flow for gathering client information
-- **Risk Assessment**: Comprehensive risk profiling with three investment approaches (Conservative, Moderate, Aggressive)
-- **Personalized Planning**: Customized retirement plans based on individual circumstances
-- **Real-Time Calculations**: Instant projections using compound interest and financial planning formulas
-- **Social Authentication**: Login/signup with Google, Apple, and Facebook (ready for OAuth integration)
-- **Email Authentication**: Traditional email/password registration and login
-- **Responsive Design**: Beautiful, modern UI that works seamlessly across all devices
-- **Goal Tracking**: Clear visualization of whether retirement goals are achievable
-
-## Technology Stack
-
-- **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
-- **Styling**: Custom CSS with modern design patterns
-- **Fonts**: Inter font family from Google Fonts
-- **Architecture**: Single Page Application (SPA)
-
-## Getting Started
-
-### Prerequisites
-
-- A modern web browser (Chrome, Firefox, Safari, Edge)
-- No build tools or dependencies required!
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/ramugade/SampleVideCode.git
-cd SampleVideCode
-```
-
-2. Open the landing page:
-```bash
-# Simply open index.html in your browser
-# Or use a local server (recommended):
-python -m http.server 8000
-# Then visit http://localhost:8000
-```
-
-## File Structure
+## Project Structure
 
 ```
 SampleVideCode/
-├── index.html          # Main landing page
-├── styles.css          # All styling and responsive design
-├── script.js           # Interactive chat functionality
-└── README.md           # Project documentation
+├── VAI_FE/                 # Frontend Application
+│   ├── index.html          # Landing page
+│   ├── styles.css          # Styling
+│   ├── script.js           # Interactive features
+│   └── README.md           # Frontend documentation
+│
+├── VAI_BE/                 # Backend API
+│   ├── config/             # Configuration files
+│   ├── controllers/        # Route controllers
+│   ├── middleware/         # Custom middleware
+│   ├── models/             # Database models
+│   ├── routes/             # API routes
+│   ├── utils/              # Utility functions
+│   ├── server.js           # Main server file
+│   ├── package.json        # Dependencies
+│   ├── .env.example        # Environment template
+│   └── README.md           # Backend documentation
+│
+└── README.md               # This file
 ```
 
-## How It Works
+## Features
 
-### The Planning Process
+### Frontend
+- **Modern Landing Page**: Hero, features, how-it-works sections
+- **Authentication UI**: Modal-based login/signup with social providers
+- **Interactive Chat Demo**: AI-powered retirement planning conversation
+- **Responsive Design**: Mobile-first, works on all devices
+- **No Dependencies**: Pure HTML/CSS/JavaScript
 
-1. **Information Gathering**: The AI chat collects essential information:
-   - Current age
-   - Target retirement age
-   - Desired annual retirement income
-   - Current savings
-   - Monthly contribution capacity
+### Backend
+- **RESTful API**: Express.js server with MongoDB
+- **User Authentication**: JWT + OAuth 2.0 (Google, Apple, Facebook)
+- **Retirement Planning**: CRUD operations for retirement plans
+- **Automatic Calculations**: Compound interest, projections, recommendations
+- **Security**: bcrypt, Helmet, CORS, rate limiting
+- **Email Features**: Verification and password reset (ready to integrate)
 
-2. **Risk Assessment**: Users select their investment risk profile:
-   - Conservative (5% expected annual return)
-   - Moderate (7% expected annual return)
-   - Aggressive (9% expected annual return)
+## Technology Stack
 
-3. **Plan Generation**: The system calculates:
-   - Future value of investments using compound interest
-   - Projected retirement fund size
-   - Sustainable annual income (4% withdrawal rule)
-   - Gap analysis and recommendations
+### Frontend
+- HTML5, CSS3, JavaScript (Vanilla)
+- Google Fonts (Inter)
+- No build process required
 
-### Financial Calculations
+### Backend
+- **Runtime**: Node.js 18+
+- **Framework**: Express.js
+- **Database**: MongoDB with Mongoose
+- **Authentication**: Passport.js, JWT, bcrypt
+- **Validation**: Express Validator
+- **Security**: Helmet, CORS
 
-The system uses standard financial formulas:
+## Quick Start
 
-**Future Value Calculation:**
-```
-FV = PV(1 + r)^n + PMT × [(1 + r)^n - 1] / r
-```
+### Frontend Setup
 
-Where:
-- FV = Future Value
-- PV = Present Value (current savings)
-- PMT = Periodic Payment (monthly contribution)
-- r = Interest rate per period
-- n = Number of periods
-
-**Sustainable Income:**
-```
-Annual Income = Total Retirement Fund × 4%
+1. Navigate to frontend directory:
+```bash
+cd VAI_FE
 ```
 
-## Authentication System
+2. Serve with a local server:
+```bash
+# Using Python
+python -m http.server 3000
 
-Vedang.AI includes a comprehensive authentication system with social login integration support for Google, Apple, and Facebook.
-
-### Features
-
-- **Modal-Based Authentication**: Clean, non-intrusive modal popup for login/signup
-- **Social Login Integration**: Ready for OAuth integration with:
-  - Google OAuth 2.0
-  - Apple Sign In
-  - Facebook Login
-- **Email/Password Authentication**: Traditional email-based signup and login
-- **Form Validation**: Client-side validation for email format and password strength
-- **Responsive Design**: Mobile-friendly authentication forms
-- **Smooth Animations**: Professional fade-in and slide-up effects
-
-### How to Use
-
-1. **Sign Up**: Click the "Sign Up" button in the navigation
-2. **Login**: Click the "Login" button in the navigation
-3. **Social Login**: Choose from Google, Apple, or Facebook buttons
-4. **Email/Password**: Fill in the form with your credentials
-5. **Switch Forms**: Toggle between login and signup using the links at the bottom
-
-### Implementation Notes
-
-The current implementation includes:
-- Complete UI for authentication
-- Form validation and error handling
-- Modal management and interactions
-- Placeholder handlers for OAuth flows
-
-**For Production**: Backend integration is required for:
-- OAuth provider credentials (Google, Apple, Facebook)
-- User database and session management
-- API endpoints for authentication
-- Secure token handling and storage
-- Email verification system
-
-### Backend Integration Guide
-
-To integrate with a backend, you'll need to:
-
-1. **Set up OAuth Applications**:
-   - Google: Create project in Google Cloud Console
-   - Apple: Register in Apple Developer Portal
-   - Facebook: Set up app in Facebook Developers
-
-2. **Update JavaScript Handlers**:
-   - Replace alert messages in `handleSocialLogin()` with actual OAuth redirects
-   - Implement proper API calls in `handleEmailSignup()` and `handleEmailLogin()`
-   - Add JWT token management
-   - Implement session persistence
-
-3. **Create Backend Endpoints**:
-   ```
-   POST /api/auth/signup
-   POST /api/auth/login
-   POST /api/auth/social/google
-   POST /api/auth/social/apple
-   POST /api/auth/social/facebook
-   GET  /api/auth/logout
-   ```
-
-## Features Breakdown
-
-### Hero Section
-- Eye-catching gradient design
-- Clear value proposition
-- Interactive statistics
-- Animated chat preview
-
-### Features Grid
-- Six key features highlighted
-- Custom icons with color-coded backgrounds
-- Hover animations for interactivity
-
-### How It Works
-- Step-by-step process visualization
-- Connected flow diagram
-- Clear, concise explanations
-
-### Interactive Chat Demo
-- Full conversation flow
-- Context-aware responses
-- Real-time calculations
-- Comprehensive plan generation
-- Reset functionality for testing
-
-### Authentication Modal
-- Social login buttons for Google, Apple, and Facebook
-- Email/password registration and login forms
-- Form validation and error handling
-- Smooth modal animations
-- Toggle between login and signup
-- Responsive mobile design
-
-### Call-to-Action
-- Strategic placement
-- High-contrast design
-- Clear next steps
-
-## Customization
-
-### Colors
-
-The design uses CSS custom properties (variables) for easy theming:
-
-```css
-:root {
-    --primary-color: #6366f1;      /* Main brand color */
-    --primary-dark: #4f46e5;       /* Darker variant */
-    --secondary-color: #8b5cf6;    /* Accent color */
-    --text-dark: #1f2937;          /* Primary text */
-    --text-light: #6b7280;         /* Secondary text */
-}
+# Using Node.js
+npx http-server -p 3000
 ```
 
-### Chat Responses
+3. Open browser to `http://localhost:3000`
 
-Modify the `VedangAI` class in `script.js` to customize:
-- Conversation flow
-- Questions asked
-- Calculation methods
-- Response formatting
+For detailed frontend instructions, see [VAI_FE/README.md](VAI_FE/README.md)
 
-## Browser Support
+### Backend Setup
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
+1. Navigate to backend directory:
+```bash
+cd VAI_BE
+```
 
-## Performance
+2. Install dependencies:
+```bash
+npm install
+```
 
-- **Initial Load**: < 1s (on 3G)
-- **Page Size**: < 100KB total
-- **No external dependencies** (except Google Fonts)
-- **Optimized animations** for smooth 60fps performance
+3. Set up environment variables:
+```bash
+cp .env.example .env
+# Edit .env with your configuration
+```
 
-## Future Enhancements
+4. Start MongoDB (if running locally):
+```bash
+mongod
+```
 
-- [x] User authentication UI (Google, Apple, Facebook social login)
-- [x] Email/password authentication UI
-- [ ] Backend API integration for authentication
-- [ ] OAuth provider integration (Google, Apple, Facebook)
-- [ ] User database and session management
-- [ ] User dashboard and profile management
-- [ ] Data persistence for retirement plans
-- [ ] PDF report generation and download
-- [ ] Email plan delivery
-- [ ] Advanced tax optimization strategies
-- [ ] Monte Carlo simulations for risk analysis
+5. Start the server:
+```bash
+# Development mode
+npm run dev
+
+# Production mode
+npm start
+```
+
+6. Server runs on `http://localhost:5000`
+
+For detailed backend instructions, see [VAI_BE/README.md](VAI_BE/README.md)
+
+## Environment Configuration
+
+### Backend (.env)
+
+Required variables:
+```env
+NODE_ENV=development
+PORT=5000
+MONGODB_URI=mongodb://localhost:27017/vedang-ai
+JWT_SECRET=your-secret-key
+SESSION_SECRET=your-session-secret
+FRONTEND_URL=http://localhost:3000
+```
+
+Optional OAuth variables:
+```env
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+FACEBOOK_APP_ID=your-facebook-app-id
+FACEBOOK_APP_SECRET=your-facebook-app-secret
+APPLE_CLIENT_ID=your-apple-client-id
+APPLE_TEAM_ID=your-apple-team-id
+```
+
+See `VAI_BE/.env.example` for complete list.
+
+### Frontend Configuration
+
+Update API URL in `VAI_FE/script.js`:
+```javascript
+const API_URL = 'http://localhost:5000';
+```
+
+## API Documentation
+
+### Authentication Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/auth/register` | Register with email/password |
+| POST | `/api/auth/login` | Login with email/password |
+| GET | `/api/auth/logout` | Logout user |
+| GET | `/api/auth/me` | Get current user |
+| GET | `/api/auth/google` | Google OAuth login |
+| GET | `/api/auth/facebook` | Facebook OAuth login |
+| POST | `/api/auth/apple` | Apple OAuth login |
+
+### Retirement Plan Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/plans` | Create retirement plan |
+| GET | `/api/plans` | Get all user plans |
+| GET | `/api/plans/:id` | Get specific plan |
+| PUT | `/api/plans/:id` | Update plan |
+| DELETE | `/api/plans/:id` | Delete plan |
+| GET | `/api/plans/stats` | Get plan statistics |
+
+Full API documentation available in [VAI_BE/README.md](VAI_BE/README.md)
+
+## OAuth Setup
+
+### Google OAuth
+1. Visit [Google Cloud Console](https://console.cloud.google.com/)
+2. Create project and enable Google+ API
+3. Create OAuth 2.0 credentials
+4. Add redirect URI: `http://localhost:5000/api/auth/google/callback`
+5. Add credentials to `.env`
+
+### Facebook OAuth
+1. Visit [Facebook Developers](https://developers.facebook.com/)
+2. Create app and add Facebook Login
+3. Add redirect URI: `http://localhost:5000/api/auth/facebook/callback`
+4. Add credentials to `.env`
+
+### Apple OAuth
+1. Visit [Apple Developer Portal](https://developer.apple.com/)
+2. Create Service ID
+3. Configure Sign in with Apple
+4. Download private key (.p8)
+5. Add credentials to `.env`
+
+## Database Models
+
+### User Model
+- Email/password or OAuth authentication
+- Profile information (name, avatar, role)
+- Email verification
+- Password reset tokens
+- Account status
+
+### Retirement Plan Model
+- User-specific plans
+- Financial data (age, income, savings, contributions)
+- Risk tolerance
+- Calculated projections
+- Goal tracking
+
+## Development Workflow
+
+1. **Start Backend** (Terminal 1):
+```bash
+cd VAI_BE
+npm run dev
+```
+
+2. **Start Frontend** (Terminal 2):
+```bash
+cd VAI_FE
+python -m http.server 3000
+```
+
+3. **Access Application**:
+   - Frontend: http://localhost:3000
+   - Backend API: http://localhost:5000
+   - API Health: http://localhost:5000/api/health
+
+## Testing
+
+### Backend Tests
+```bash
+cd VAI_BE
+npm test
+```
+
+### Frontend
+- Manual testing in browser
+- Check console for errors
+- Test responsive design
+- Verify all interactions
+
+## Deployment
+
+### Frontend Deployment
+Deploy to static hosting (Netlify, Vercel, GitHub Pages):
+```bash
+cd VAI_FE
+netlify deploy --prod
+```
+
+### Backend Deployment
+Deploy to Node.js hosting (Heroku, AWS, DigitalOcean):
+```bash
+cd VAI_BE
+# Set environment variables
+# Deploy using platform-specific commands
+```
+
+See individual READMEs for detailed deployment instructions.
+
+## Security Considerations
+
+- [ ] Use strong JWT_SECRET in production
+- [ ] Enable HTTPS for both frontend and backend
+- [ ] Configure CORS properly for production domains
+- [ ] Use secure session secrets
+- [ ] Enable rate limiting
+- [ ] Validate all user inputs
+- [ ] Keep dependencies updated
+- [ ] Use environment variables for secrets
+- [ ] Implement proper error handling
+- [ ] Add logging and monitoring
+
+## Features Roadmap
+
+- [x] User authentication (email/password)
+- [x] OAuth integration (Google, Apple, Facebook)
+- [x] Retirement plan CRUD
+- [x] Financial calculations
+- [ ] Email service integration
+- [ ] PDF report generation
+- [ ] Dashboard UI
+- [ ] Real-time notifications
+- [ ] Advanced analytics
+- [ ] Tax optimization
 - [ ] Social Security integration
-- [ ] Healthcare cost projections
-- [ ] Inflation adjustments
-- [ ] Multi-currency support
-- [ ] Portfolio rebalancing recommendations
-- [ ] Integration with financial accounts
+- [ ] Investment portfolio tracking
+- [ ] Mobile app (React Native)
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open Pull Request
+
+## Troubleshooting
+
+### Backend Issues
+
+**MongoDB connection fails:**
+- Check if MongoDB is running
+- Verify MONGODB_URI in .env
+- Ensure MongoDB is accessible
+
+**OAuth not working:**
+- Verify credentials in .env
+- Check redirect URIs match
+- Ensure callbacks are configured
+
+### Frontend Issues
+
+**API calls failing:**
+- Check if backend is running
+- Verify API_URL in script.js
+- Check CORS configuration
+- Inspect browser console
+
+**Authentication not working:**
+- Check if cookies are enabled
+- Verify token storage
+- Check network requests
 
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Disclaimer
+## Support
 
-This tool provides educational estimates only. The projections are simplified and do not constitute financial advice. Actual investment returns vary and are not guaranteed. Please consult with a qualified financial advisor for personalized retirement planning.
-
-## Contact
-
-For questions or support, please contact:
+For questions and support:
 - Email: hello@vedang.ai
-- Website: [Vedang.AI](https://vedang.ai)
+- GitHub Issues: [Create an issue](https://github.com/ramugade/SampleVideCode/issues)
 
 ## Acknowledgments
 
 - Inspired by modern FinTech applications
 - Design principles from leading SaaS platforms
 - Financial calculations based on standard retirement planning formulas
+- OAuth implementation following best practices
 
 ---
 
-Built with care for a secure financial future 🚀
+**Built with ❤️ for a secure financial future**
