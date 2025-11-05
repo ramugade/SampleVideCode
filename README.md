@@ -14,6 +14,8 @@ Vedang.AI is an intelligent retirement planning platform that combines cutting-e
 - **Risk Assessment**: Comprehensive risk profiling with three investment approaches (Conservative, Moderate, Aggressive)
 - **Personalized Planning**: Customized retirement plans based on individual circumstances
 - **Real-Time Calculations**: Instant projections using compound interest and financial planning formulas
+- **Social Authentication**: Login/signup with Google, Apple, and Facebook (ready for OAuth integration)
+- **Email Authentication**: Traditional email/password registration and login
 - **Responsive Design**: Beautiful, modern UI that works seamlessly across all devices
 - **Goal Tracking**: Clear visualization of whether retirement goals are achievable
 
@@ -100,6 +102,70 @@ Where:
 Annual Income = Total Retirement Fund × 4%
 ```
 
+## Authentication System
+
+Vedang.AI includes a comprehensive authentication system with social login integration support for Google, Apple, and Facebook.
+
+### Features
+
+- **Modal-Based Authentication**: Clean, non-intrusive modal popup for login/signup
+- **Social Login Integration**: Ready for OAuth integration with:
+  - Google OAuth 2.0
+  - Apple Sign In
+  - Facebook Login
+- **Email/Password Authentication**: Traditional email-based signup and login
+- **Form Validation**: Client-side validation for email format and password strength
+- **Responsive Design**: Mobile-friendly authentication forms
+- **Smooth Animations**: Professional fade-in and slide-up effects
+
+### How to Use
+
+1. **Sign Up**: Click the "Sign Up" button in the navigation
+2. **Login**: Click the "Login" button in the navigation
+3. **Social Login**: Choose from Google, Apple, or Facebook buttons
+4. **Email/Password**: Fill in the form with your credentials
+5. **Switch Forms**: Toggle between login and signup using the links at the bottom
+
+### Implementation Notes
+
+The current implementation includes:
+- Complete UI for authentication
+- Form validation and error handling
+- Modal management and interactions
+- Placeholder handlers for OAuth flows
+
+**For Production**: Backend integration is required for:
+- OAuth provider credentials (Google, Apple, Facebook)
+- User database and session management
+- API endpoints for authentication
+- Secure token handling and storage
+- Email verification system
+
+### Backend Integration Guide
+
+To integrate with a backend, you'll need to:
+
+1. **Set up OAuth Applications**:
+   - Google: Create project in Google Cloud Console
+   - Apple: Register in Apple Developer Portal
+   - Facebook: Set up app in Facebook Developers
+
+2. **Update JavaScript Handlers**:
+   - Replace alert messages in `handleSocialLogin()` with actual OAuth redirects
+   - Implement proper API calls in `handleEmailSignup()` and `handleEmailLogin()`
+   - Add JWT token management
+   - Implement session persistence
+
+3. **Create Backend Endpoints**:
+   ```
+   POST /api/auth/signup
+   POST /api/auth/login
+   POST /api/auth/social/google
+   POST /api/auth/social/apple
+   POST /api/auth/social/facebook
+   GET  /api/auth/logout
+   ```
+
 ## Features Breakdown
 
 ### Hero Section
@@ -124,6 +190,14 @@ Annual Income = Total Retirement Fund × 4%
 - Real-time calculations
 - Comprehensive plan generation
 - Reset functionality for testing
+
+### Authentication Modal
+- Social login buttons for Google, Apple, and Facebook
+- Email/password registration and login forms
+- Form validation and error handling
+- Smooth modal animations
+- Toggle between login and signup
+- Responsive mobile design
 
 ### Call-to-Action
 - Strategic placement
@@ -171,9 +245,14 @@ Modify the `VedangAI` class in `script.js` to customize:
 
 ## Future Enhancements
 
-- [ ] Backend integration for data persistence
-- [ ] User authentication and accounts
-- [ ] PDF report generation
+- [x] User authentication UI (Google, Apple, Facebook social login)
+- [x] Email/password authentication UI
+- [ ] Backend API integration for authentication
+- [ ] OAuth provider integration (Google, Apple, Facebook)
+- [ ] User database and session management
+- [ ] User dashboard and profile management
+- [ ] Data persistence for retirement plans
+- [ ] PDF report generation and download
 - [ ] Email plan delivery
 - [ ] Advanced tax optimization strategies
 - [ ] Monte Carlo simulations for risk analysis
@@ -181,6 +260,8 @@ Modify the `VedangAI` class in `script.js` to customize:
 - [ ] Healthcare cost projections
 - [ ] Inflation adjustments
 - [ ] Multi-currency support
+- [ ] Portfolio rebalancing recommendations
+- [ ] Integration with financial accounts
 
 ## Contributing
 

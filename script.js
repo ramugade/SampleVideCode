@@ -344,3 +344,229 @@ document.addEventListener('scroll', () => {
         hero.style.transform = `translateY(${scrolled * 0.3}px)`;
     }
 });
+
+// Authentication Modal Handler
+class AuthModal {
+    constructor() {
+        this.modal = document.getElementById('authModal');
+        this.loginBtn = document.getElementById('loginBtn');
+        this.signupBtn = document.getElementById('signupBtn');
+        this.modalClose = document.getElementById('modalClose');
+        this.modalOverlay = document.getElementById('modalOverlay');
+
+        this.signupForm = document.getElementById('signupForm');
+        this.loginForm = document.getElementById('loginForm');
+
+        this.showLoginLink = document.getElementById('showLogin');
+        this.showSignupLink = document.getElementById('showSignup');
+
+        this.init();
+    }
+
+    init() {
+        // Open modal for signup
+        this.signupBtn.addEventListener('click', () => {
+            this.openModal('signup');
+        });
+
+        // Open modal for login
+        this.loginBtn.addEventListener('click', () => {
+            this.openModal('login');
+        });
+
+        // Close modal
+        this.modalClose.addEventListener('click', () => {
+            this.closeModal();
+        });
+
+        this.modalOverlay.addEventListener('click', () => {
+            this.closeModal();
+        });
+
+        // Switch between login and signup
+        this.showLoginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.switchToLogin();
+        });
+
+        this.showSignupLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.switchToSignup();
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.modal.classList.contains('active')) {
+                this.closeModal();
+            }
+        });
+
+        // Social login handlers
+        this.setupSocialLogins();
+
+        // Form submission handlers
+        this.setupFormHandlers();
+    }
+
+    openModal(type = 'signup') {
+        this.modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+
+        if (type === 'login') {
+            this.switchToLogin();
+        } else {
+            this.switchToSignup();
+        }
+    }
+
+    closeModal() {
+        this.modal.classList.remove('active');
+        document.body.style.overflow = ''; // Re-enable scrolling
+    }
+
+    switchToLogin() {
+        this.signupForm.classList.add('hidden');
+        this.loginForm.classList.remove('hidden');
+    }
+
+    switchToSignup() {
+        this.loginForm.classList.add('hidden');
+        this.signupForm.classList.remove('hidden');
+    }
+
+    setupSocialLogins() {
+        // Google login/signup
+        const googleButtons = [
+            document.getElementById('googleSignup'),
+            document.getElementById('googleLogin')
+        ];
+
+        googleButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.handleSocialLogin('Google');
+            });
+        });
+
+        // Apple login/signup
+        const appleButtons = [
+            document.getElementById('appleSignup'),
+            document.getElementById('appleLogin')
+        ];
+
+        appleButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.handleSocialLogin('Apple');
+            });
+        });
+
+        // Facebook login/signup
+        const facebookButtons = [
+            document.getElementById('facebookSignup'),
+            document.getElementById('facebookLogin')
+        ];
+
+        facebookButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.handleSocialLogin('Facebook');
+            });
+        });
+    }
+
+    handleSocialLogin(provider) {
+        // This is where you would integrate with actual OAuth providers
+        // For now, we'll show a demo message
+        alert(`${provider} authentication would be initiated here.\n\nIn production, this would redirect to ${provider}'s OAuth flow.\n\nIntegration requires:\n- ${provider} OAuth credentials\n- Backend API endpoints\n- Secure token handling`);
+
+        // In a real implementation, you would:
+        // 1. Redirect to provider's OAuth URL
+        // 2. Handle the callback
+        // 3. Exchange code for tokens
+        // 4. Create/update user session
+
+        console.log(`Initiating ${provider} authentication...`);
+    }
+
+    setupFormHandlers() {
+        // Email signup form
+        const emailSignupForm = document.getElementById('emailSignupForm');
+        emailSignupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.handleEmailSignup(e.target);
+        });
+
+        // Email login form
+        const emailLoginForm = document.getElementById('emailLoginForm');
+        emailLoginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.handleEmailLogin(e.target);
+        });
+    }
+
+    handleEmailSignup(form) {
+        const formData = {
+            name: form.signupName.value,
+            email: form.signupEmail.value,
+            password: form.signupPassword.value
+        };
+
+        // Validate inputs
+        if (!formData.name || !formData.email || !formData.password) {
+            alert('Please fill in all fields');
+            return;
+        }
+
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+            alert('Please enter a valid email address');
+            return;
+        }
+
+        // Validate password strength (minimum 8 characters)
+        if (formData.password.length < 8) {
+            alert('Password must be at least 8 characters long');
+            return;
+        }
+
+        // This is where you would send data to your backend
+        alert(`Sign up successful!\n\nIn production, this would:\n- Create account for: ${formData.email}\n- Send verification email\n- Set up user session\n\nBackend integration required.`);
+
+        console.log('Signup data:', { ...formData, password: '[REDACTED]' });
+
+        // Clear form
+        form.reset();
+
+        // Close modal
+        this.closeModal();
+    }
+
+    handleEmailLogin(form) {
+        const formData = {
+            email: form.loginEmail.value,
+            password: form.loginPassword.value,
+            rememberMe: form.rememberMe.checked
+        };
+
+        // Validate inputs
+        if (!formData.email || !formData.password) {
+            alert('Please fill in all fields');
+            return;
+        }
+
+        // This is where you would authenticate with your backend
+        alert(`Login successful!\n\nIn production, this would:\n- Authenticate: ${formData.email}\n- Create session\n- Redirect to dashboard\n\nBackend integration required.`);
+
+        console.log('Login data:', { ...formData, password: '[REDACTED]' });
+
+        // Clear form
+        form.reset();
+
+        // Close modal
+        this.closeModal();
+    }
+}
+
+// Initialize authentication modal when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    new AuthModal();
+});
